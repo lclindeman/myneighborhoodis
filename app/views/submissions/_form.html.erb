@@ -1,0 +1,27 @@
+<%= form_for([@neighborhood, @submission]) do |f| %>
+  <% if @submission.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+
+      <ul>
+      <% @submission.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div class="field">
+		<%= f.label :submitter_name %><br>
+ 		<%= f.text_field :submitter_name %>
+	</div>
+
+	<%= f.fields_for :descriptors, @submission.descriptors.build do |descriptor_fields| %>
+  	Adjective: <%= descriptor_fields.text_field :adjective %>
+  <% end %>
+	
+  <div class="actions">
+	  <%= f.submit %>
+  </div>
+	
+<% end %>
